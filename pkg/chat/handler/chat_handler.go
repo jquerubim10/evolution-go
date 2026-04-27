@@ -16,11 +16,21 @@ type ChatHandler interface {
 	ChatMute(ctx *gin.Context)
 	ChatUnmute(ctx *gin.Context)
 	HistorySyncRequest(ctx *gin.Context)
+	// FetchMessages(ctx *gin.Context)
 }
 
 type chatHandler struct {
 	chatService chat_service.ChatService
 }
+
+/*
+// FetchMessages from a chat
+...
+func (c *chatHandler) FetchMessages(ctx *gin.Context) {
+...
+	ctx.JSON(http.StatusOK, gin.H{"message": "success", "data": msgs})
+}
+*/
 
 // Pin a chat
 // @Summary Pin a chat

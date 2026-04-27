@@ -22,7 +22,15 @@ type ChatService interface {
 	ChatMute(data *BodyStruct, instance *instance_model.Instance) (string, error)
 	ChatUnmute(data *BodyStruct, instance *instance_model.Instance) (string, error)
 	HistorySyncRequest(data *HistorySyncRequestStruct, instance *instance_model.Instance) (*whatsmeow.SendResponse, error)
+	// FetchMessages(data *FetchMessagesStruct, instance *instance_model.Instance) ([]*types.Message, error)
 }
+
+/*
+type FetchMessagesStruct struct {
+	Chat  string `json:"chat"`
+	Count int    `json:"count"`
+}
+*/
 
 type chatService struct {
 	clientPointer    map[string]*whatsmeow.Client
@@ -242,6 +250,33 @@ func (c *chatService) HistorySyncRequest(data *HistorySyncRequestStruct, instanc
 
 	return &res, nil
 }
+
+/*
+func (c *chatService) FetchMessages(data *FetchMessagesStruct, instance *instance_model.Instance) ([]*types.Message, error) {
+	client, err := c.ensureClientConnected(instance.Id)
+	if err != nil {
+		return nil, err
+	}
+
+	recipient, ok := utils.ParseJID(data.Chat)
+	if !ok {
+		return nil, errors.New("invalid phone number")
+	}
+
+	if data.Count <= 0 {
+		data.Count = 20
+	}
+
+	// Fetch messages from local store via whatsmeow client
+	msgs, err := client.Store.Messages.GetMessages(recipient, data.Count, 0)
+	if err != nil {
+		c.loggerWrapper.GetLogger(instance.Id).LogError("[%s] error fetching messages from store: %v", instance.Id, err)
+		return nil, err
+	}
+
+	return msgs, nil
+}
+*/
 
 func NewChatService(
 	clientPointer map[string]*whatsmeow.Client,

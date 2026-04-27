@@ -48,6 +48,7 @@ type SendService interface {
 	SendStatusText(data *StatusTextStruct, instance *instance_model.Instance) (*MessageSendStruct, error)
 	SendStatusMediaUrl(data *StatusMediaStruct, instance *instance_model.Instance) (*MessageSendStruct, error)
 	SendStatusMediaFile(data *StatusMediaStruct, fileData []byte, instance *instance_model.Instance) (*MessageSendStruct, error)
+	SendTemplate(data *TemplateStruct, instance *instance_model.Instance) (*MessageSendStruct, error)
 }
 
 type sendService struct {
@@ -258,6 +259,26 @@ type StatusMediaStruct struct {
 	Url     string `json:"url"`
 	Caption string `json:"caption"`
 	Id      string `json:"id"`
+}
+
+type TemplateButtonStruct struct {
+	Type        string `json:"type"`        // "reply" | "url" | "call"
+	DisplayText string `json:"displayText"`
+	ID          string `json:"id"`          // para type=reply
+	URL         string `json:"url"`         // para type=url
+	PhoneNumber string `json:"phoneNumber"` // para type=call
+}
+
+type TemplateStruct struct {
+	Number    string                 `json:"number"`
+	Title     string                 `json:"title"`
+	Body      string                 `json:"body"`
+	Footer    string                 `json:"footer"`
+	Id        string                 `json:"id"`
+	Delay     int32                  `json:"delay"`
+	FormatJid *bool                  `json:"formatJid"`
+	Quoted    QuotedStruct           `json:"quoted"`
+	Buttons   []TemplateButtonStruct `json:"buttons"`
 }
 
 type MessageSendStruct struct {

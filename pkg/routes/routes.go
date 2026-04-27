@@ -168,6 +168,7 @@ func (r *Routes) AssignRoutes(eng *gin.Engine) {
 			routes.POST("/mute", r.jidValidationMiddleware.ValidateNumberField(), r.chatHandler.ChatMute)           // TODO: not working
 			routes.POST("/unmute", r.jidValidationMiddleware.ValidateNumberField(), r.chatHandler.ChatUnmute)       // TODO: not working
 			routes.POST("/history-sync", r.chatHandler.HistorySyncRequest)
+			// routes.POST("/fetch-messages", r.jidValidationMiddleware.ValidateNumberField(), r.chatHandler.FetchMessages)
 		}
 	}
 	routes = eng.Group("/group")
