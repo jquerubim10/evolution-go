@@ -48,7 +48,7 @@ type SendService interface {
 	SendStatusText(data *StatusTextStruct, instance *instance_model.Instance) (*MessageSendStruct, error)
 	SendStatusMediaUrl(data *StatusMediaStruct, instance *instance_model.Instance) (*MessageSendStruct, error)
 	SendStatusMediaFile(data *StatusMediaStruct, fileData []byte, instance *instance_model.Instance) (*MessageSendStruct, error)
-	SendTemplate(data *TemplateStruct, instance *instance_model.Instance) (*MessageSendStruct, error)
+	// SendTemplate(data *TemplateStruct, instance *instance_model.Instance) (*MessageSendStruct, error)
 }
 
 type sendService struct {
